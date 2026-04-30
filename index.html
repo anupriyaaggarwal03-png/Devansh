@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Devansh ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 400px;
+            z-index: 1;
+        }
+
+        .img-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #d63384;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #d63384;
+            color: white;
+            position: relative;
+            z-index: 100;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        #celebration {
+            display: none;
+        }
+
+        p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Ask Section -->
+    <div class="container" id="main-content">
+        <div class="img-container">
+            <img src="us.jpeg" alt="A photo of us">
+        </div>
+        
+        <h1 id="questionText">Devansh, will you be my boyfriend?</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onclick="makeYesBigger()">No</button>
+        </div>
+        <p style="margin-top: 20px; opacity: 0.5;">(Turn your sound on! 🔊)</p>
+    </div>
+
+    <!-- Success Section -->
+    <div id="celebration" class="container">
+        <div class="img-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIyeW9ueW5wbmM5MDRoM3JmZzR6eXN1Z3JreXN4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="Success GIF">
+        </div>
+        <h1 style="color: #d63384;">Best Decision Ever! 🥰 ❤️</h1>
+        <p>You just made me the happiest person!</p>
+    </div>
+
+    <script>
+        let yesSize = 1;
+        const messages = [
+            "Are you sure?",
+            "Think again! 🥺",
+            "But Devansh...",
+            "Really sure??",
+            "Don't do this to me!",
+            "I'm gonna cry... 😭",
+            "Click the pink one! ❤️"
+        ];
+        let messageIndex = 0;
+
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Audio play deferred until interaction."));
+        }
+
+        function makeYesBigger() {
+            playMusic(); // Starts music on first interaction
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            
+            // Make Yes button grow
+            yesSize += 0.5;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Change No button text
+            if (messageIndex < messages.length) {
+                noBtn.innerText = messages[messageIndex];
+                messageIndex++;
+            } else {
+                noBtn.innerText = "Okay, I give up. Press Yes!";
+            }
+        }
+
+        function celebrate() {
+            playMusic();
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            
+            // Phone vibration for "Yes"
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+    </script>
+</body>
+</html>
